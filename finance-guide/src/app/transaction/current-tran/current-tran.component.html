@@ -1,3 +1,7 @@
-<p>
-  current-tran works!
-</p>
+<section class="current-tran" fxLayout="column" fxLayoutAlign="center center">
+  <mat-progress-spinner mode="indeterminate">
+    </mat-progress-spinner>
+    <h1>Completing Transacation...</h1>
+    <p>Click below to cancel transacation</p>
+    <button mat-raised-button color="accent" (click)="onConfirm()"> Stop </button>
+</section>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-new-tran',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-tran.component.css']
 })
 export class NewTranComponent implements OnInit {
-
+  @Output() confirmTransacation = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit() {
   }
 
+  onConfirmTransacation() {
+    this.confirmTransacation.emit();
+  }
 }

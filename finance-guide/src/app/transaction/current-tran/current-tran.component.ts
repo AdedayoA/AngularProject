@@ -8,8 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class CurrentTranComponent implements OnInit {
 
   constructor() { }
-
+/**
+  Progress  of current tran component
+   progress = 0;
+ */
+progress = 0;
   ngOnInit() {
   }
 
+  onConfirm() {
+    clearInterval(this.timer)
+  }
 }
+/**
+ngOnInit() {
+  setInterval(() => {
+    this.progress = this.progress + 5;
+  }, 1000);
+}
+}
+*/

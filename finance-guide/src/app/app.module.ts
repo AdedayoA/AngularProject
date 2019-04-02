@@ -14,6 +14,9 @@ import { NewTranComponent } from './transaction/new-tran/new-tran.component';
 import { PastTranComponent } from './transaction/past-tran/past-tran.component';
 import { CurrentTranComponent } from './transaction/current-tran/current-tran.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidenacListComponent } from './navigation/sidenac-list/sidenac-list.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
     NewTranComponent,
     PastTranComponent,
     CurrentTranComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    HeaderComponent,
+    SidenacListComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
