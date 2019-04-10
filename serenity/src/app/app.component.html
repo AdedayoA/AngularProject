@@ -1,0 +1,30 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <app-sidenav-list (closeSidenav)="sidenav.close()"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<button mat-icon-button color="accent">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+</button>
+<button mat-raised-button color="primary">Test</button>
+<button mat-raised-button color="primary">Sign In</button>
+<button mat-raised-button color="primary">Register</button>
+
+<button mat-icon-button color="accent">
+<mat-icon aria-hidden="false" aria-label="Example home icon">info</mat-icon>
+</button>
+
+<mat-chip-list aria-label="Fitness selection">
+  <mat-chip color="accent" selected>Home</mat-chip>
+  <mat-chip color="accent" selected>Help</mat-chip>
+
+</mat-chip-list>
+
+

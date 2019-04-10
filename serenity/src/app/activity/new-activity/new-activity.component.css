@@ -1,0 +1,13 @@
+.example-card {
+    max-width: 400px;
+    padding: 30px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://ih1.redbubble.net/image.333855279.9559/flat,550x550,075,f.u1.jpg');
+    background-size: cover;
+  }
+  
+  .new-tran {
+      padding: 30px;
+  }

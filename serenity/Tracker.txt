@@ -1,0 +1,28 @@
+4/1
+Sign up page changes:
+Email
+Password
+Date of Birth
+Terms & Conditions Box
+Submit button
+Validation to user input
+    - User cannot sign up unless the above requirements are filled and valid
+
+4/2
+- Added new font to overall website (ZCOOL XiaoWei looks cool)
+- Implemented Side-Navigation
+- Added responsive design for mobile
+- Implemented list & icons on side navigation, closes on press
+- Added a logout mechanic
+- Split up the navigation system into multiple components
+- Updated Welcome screen
+- Added sub-navigation to Transaction page
+- Added category under transaction page
+- Added a tracker for current transacation
+
+4/8
+- Scrapped transaction/financial idea, making a breathing/mediation application (Now called Serenity)
+- Fixed side navigation
+- Created a confirm quit methodology when in a current activity
+- Added some more CSS to side navigation (Hover = Indigo)
+- Rework progress spinner from indifenite to match with counter
