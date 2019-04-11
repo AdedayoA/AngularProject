@@ -1,21 +1,17 @@
 a {
     text-decoration: none;
-    color: white;
+    color: indigo;
 }
 
 a:hover,
 a:active {
-    color: lightgray;
+    color: cornflowerblue;
 }
 
 .navigation-items {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.home-icon {
-    fill:white;
 }
 
 .nav-caption {

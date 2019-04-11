@@ -26,3 +26,8 @@ Validation to user input
 - Created a confirm quit methodology when in a current activity
 - Added some more CSS to side navigation (Hover = Indigo)
 - Rework progress spinner from indifenite to match with counter
+
+4/10
+- Implemented Login/Logout mechanics
+- Dyanmically create a list of activities
+- Created a form in new activities that passes data to another file

@@ -17,6 +17,9 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { StopActivityComponent } from './activity/current-activity/stop-activity-component';
 import { AuthService } from './auth/auth-service';
+import { AuthGuard } from './auth/auth.guard';
+import { ActivityService } from './activity/activity.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,7 @@ import { AuthService } from './auth/auth-service';
     FlexLayoutModule,
     FormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, ActivityService],
   bootstrap: [AppComponent],
   entryComponents: [StopActivityComponent]
 })
