@@ -3,8 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyCVjzCwDo8O-6lzIeQvijSbWF4QpVu0GGI",
+    authDomain: "fb-serenity.firebaseapp.com",
+    databaseURL: "https://fb-serenity.firebaseio.com",
+    projectId: "fb-serenity",
+    storageBucket: "fb-serenity.appspot.com",
+    messagingSenderId: "298183657732"
+  }
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

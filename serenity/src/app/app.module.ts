@@ -19,6 +19,10 @@ import { StopActivityComponent } from './activity/current-activity/stop-activity
 import { AuthService } from './auth/auth-service';
 import { AuthGuard } from './auth/auth.guard';
 import { ActivityService } from './activity/activity.service';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ import { ActivityService } from './activity/activity.service';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [AuthService, ActivityService],
   bootstrap: [AppComponent],

@@ -1,11 +1,11 @@
-  <section class="new-tran" fxLayout fxLayoutAlign="center">
+  <section class="new-activity" fxLayout fxLayoutAlign="center">
     <form (ngSubmit)="onStartActivity(f)" #f="ngForm">
     <mat-card fxFlex.xs="100%" fxFlex="400px">
       <mat-card-title fxLayoutAlign="center">Select a category</mat-card-title>
     <mat-card-content fxLayoutAlign="center">
       <mat-form-field>
         <mat-select placeholder="Open Your Mind" ngModel name="activity" required>
-          <mat-option *ngFor="let activity of activities" [value]="exercise-id">
+          <mat-option *ngFor="let activity of activities" [value]="activity.id">
             {{ activity.name }}
           </mat-option>
           </mat-select>
@@ -17,7 +17,7 @@
     </mat-card>
   </form>
   </section>
-
+<!--
   <section class="new-tran1" fxLayout fxLayoutAlign="center">
       <mat-card class="example-card">
         <mat-card-header>
@@ -37,4 +37,4 @@
         </mat-card-actions>
       </mat-card>
       </section>
-      
+    -->

@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { StopActivityComponent } from './stop-activity-component';
+import { ActivityService } from '../activity.service';
 
 @Component({
   selector: 'app-current-activity',
@@ -12,19 +13,23 @@ export class CurrentActivityComponent implements OnInit {
   timer: number;
   @Output() activityExit = new EventEmitter();
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private activityService: ActivityService) { }
  
    ngOnInit() {
     this.startOrResumeTimer();
    }
 
    startOrResumeTimer(){
+    const step = this.activityService.getRunningActivity().duration / 100 * 1000;
+    console.log('The step is', step);
     this.timer = setInterval(() => {
-      this.progress = this.progress + 5;
+      this.progress = this.progress + 1;
       if (this.progress >= 100) {
+        this.activityService.completeActivity();
         clearInterval(this.timer);
       }
-    }, 1000);
+      console.log('The step is', step);
+    }, step);
    }
  
    onStop()
@@ -37,7 +42,7 @@ export class CurrentActivityComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result){
-          this.activityExit.emit();
+          this.activityService.cancelActivity(this.progress);
         }
         else {
           this.startOrResumeTimer();

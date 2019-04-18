@@ -1,23 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angluar/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 import { ActivityService } from '../activity.service';
-import { Exercise } from '../exercise.model';
+import { Activity } from '../activity.model';
 
 @Component({
   selector: 'app-new-activity',
   templateUrl: './new-activity.component.html',
   styleUrls: ['./new-activity.component.css']
 })
-export class NewActivityComponent implements OnInit {
-  activities: Exercise[] = [];
+export class NewActivityComponent implements OnInit, OnDestroy {
+  activities: Activity[];
+  activitySubscription: Subscription;
+
 
   constructor(private activityService: ActivityService) { }
 
-  ngOnInit() {
-    this.activities = this.activityService.getAvailableActivities();
+  ngOnInit(){
+    this.activitySubscription = this.activityService.activitiesChanged.subscribe(activities => (this.activities = activities));
+    this.activityService.fetchAvailableActivities();
   }
+  
 
   onStartActivity(form: NgForm ) {
-    this.activityService.startExercise(form.value.activity);
+    this.activityService.startActivity(form.value.activity);
+  }
+
+  ngOnDestroy(){
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.activitySubscription.unsubscribe();
+    
   }
 }

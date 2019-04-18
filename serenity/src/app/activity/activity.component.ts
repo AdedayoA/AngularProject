@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivityService } from './activity.service';
+
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
@@ -8,21 +9,19 @@ import { ActivityService } from './activity.service';
 })
 export class ActivityComponent implements OnInit {
   ongoingActivity = false;
-  exerciseSubscription: PushSubscription;
+  activitySubscription: Subscription;
 
   constructor(private activityService: ActivityService) { }
 
   ngOnInit() {
-    this.exerciseSubscription = this.activityService.exerciseChanged.subscribe(
-      exercise => {
-        if (exercise){
+    this.activitySubscription = this.activityService.activityChanged.subscribe(activity => {
+        if (activity){
           this.ongoingActivity = true;
-        }
-        else {
+        }else 
+        {
           this.ongoingActivity = false;
         }
-      }
-    );
+      });
   }
 
 }

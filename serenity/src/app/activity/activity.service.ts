@@ -1,26 +1,59 @@
 import { Subject } from 'rxjs/Subject';
-import { Exercise } from './exercise.model';
+import { Activity } from './activity.model';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
-export class ActivityService{
-    exerciseChanged  = new Subject<Exercise>();
-    private availableExercises: Exercise[] = [
-        { id: 'quick-relaxation', name: 'Quick Relaxation', duration: 60, breaths: 16 },
-        { id: 'relaxation', name: 'Relaxation For 5 Minutes', duration: 300, breaths: 80 },
-        { id: 'quick-meditation', name: 'Quick Meditation', duration: 60, breaths: 16 },
-        { id: 'meditation-5', name: 'Meditation For 5 Minutes', duration: 300, breaths: 80 },
-        { id: 'meditation-10', name: 'Meditation For 10 Minutes', duration: 300, breaths: 160 },
-        { id: 'meditation-15', name: 'Meditation For 15 Minutes', duration: 300, breaths: 240 },
-        { id: 'meditation-30', name: 'Meditation For 30 Minutes', duration: 300, breaths: 320 },
-    ];
 
-    private runningExercise: Exercise;
+@Injectable()
+export class ActivityService {
+    activityChanged = new Subject<Activity>();
+    activitiesChanged = new Subject<Activity[]>();
+    private availableActivities: Activity[] = [];
+    private runningActivity: Activity;
+    private activities: Activity[] = [];
 
-    getAvailableActivities() {
-        return this.availableExercises.slice();
+constructor(private db: AngularFirestore) {}
+
+    fetchAvailableActivities() {
+        this.db.collection('availableActivities').snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Activity;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        ).subscribe((activities: Activity[]) => {
+            this.availableActivities = activities;
+            this.activitiesChanged.next(...[this.availableActivities]);
+        });
     }
 
-    startExercise(selectedId: String){
-        this.runningExercise = this.availableExercises.find(ex => ex.id === selectedId);
-        this.exerciseChanged.next({ ...this.runningExercise });
+    startActivity(selectedId: string) {
+        this.runningActivity = this.availableActivities.find(ex => ex.id === selectedId);
+        this.activityChanged.next({ ...this.runningActivity });
     }
+
+    completeActivity() {
+        this.activities.push({ ...this.runningActivity, date: new Date(), state: 'completed' });
+        this.runningActivity = null;
+        this.activityChanged.next(null);
+    }
+
+    cancelActivity(progress: number) {
+        this.activities.push({
+            ...this.runningActivity, date: new Date(), duration: this.runningActivity.duration * (progress / 100), breaths: this.runningActivity.breaths * (progress / 100),
+            state: 'cancelled'
+        });
+        this.runningActivity = null;
+        this.activityChanged.next(null);
+    }
+
+    getRunningActivity() {
+        return { ...this.runningActivity };
+    }
+
+    getCompletedorCancelledActivities() {
+        return this.activities.slice();
+    }
+
 }
