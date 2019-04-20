@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
 export class ActivityService {
     activityChanged = new Subject<Activity>();
     activitiesChanged = new Subject<Activity[]>();
+    finishedActivitiesChanged = new Subject<Activity[]>();
     private availableActivities: Activity[] = [];
     private runningActivity: Activity;
-    private activities: Activity[] = [];
 
 constructor(private db: AngularFirestore) {}
 
@@ -34,13 +34,13 @@ constructor(private db: AngularFirestore) {}
     }
 
     completeActivity() {
-        this.activities.push({ ...this.runningActivity, date: new Date(), state: 'completed' });
+        this.addDataToDatabase({ ...this.runningActivity, date: new Date(), state: 'completed' });
         this.runningActivity = null;
         this.activityChanged.next(null);
     }
 
     cancelActivity(progress: number) {
-        this.activities.push({
+        this.addDataToDatabase({
             ...this.runningActivity, date: new Date(), duration: this.runningActivity.duration * (progress / 100), breaths: this.runningActivity.breaths * (progress / 100),
             state: 'cancelled'
         });
@@ -52,8 +52,14 @@ constructor(private db: AngularFirestore) {}
         return { ...this.runningActivity };
     }
 
-    getCompletedorCancelledActivities() {
-        return this.activities.slice();
+    fetchCompletedorCancelledActivities() {
+        this.db.collection('finishedActivities').valueChanges().subscribe((activities: Activity[]) =>{
+            this.finishedActivitiesChanged.next(activities);
+        });
+    }
+
+    private addDataToDatabase(activity: Activity){
+        this.db.collection('finishedActivities').add(activity);
     }
 
 }

@@ -31,3 +31,15 @@ Validation to user input
 - Implemented Login/Logout mechanics
 - Dyanmically create a list of activities
 - Created a form in new activities that passes data to another file
+
+4/17
+- Added Firebase
+- Created a firebase & firestore to store actitivies
+- Changed code to communicate to the database to get activities
+- Restructing code throughout
+- Created current activity that tracks your duration
+- Can cancel/continue depending on user's requirements
+- Data is saved and accessed through past training (Currently not stored in Database)
+- Table can be sorted
+- Table is filtered
+- Table can be paginated
