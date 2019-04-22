@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -22,6 +22,14 @@ import { ActivityService } from './activity/activity.service';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { MatIconRegistry, MatIconModule } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { ResetComponent } from './auth/reset/reset.component';
+import { UIService } from './shared/ui.service';
+
+
 
 
 @NgModule({
@@ -36,7 +44,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    StopActivityComponent
+    StopActivityComponent,
+    ResetComponent, 
+
   ],
   imports: [
     BrowserModule,
@@ -46,10 +56,16 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     FlexLayoutModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    MatIconModule,
+    HttpClientModule,
   ],
-  providers: [AuthService, ActivityService],
+  providers: [AuthService, ActivityService, UIService],
   bootstrap: [AppComponent],
   entryComponents: [StopActivityComponent]
 })
-export class AppModule { }
+export class AppModule {
+    constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+      matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+    } }

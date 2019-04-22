@@ -1,3 +1,5 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
+
 <section class="signup-form">
   <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <mat-form-field>
@@ -44,6 +46,13 @@
     name="agree"
     required>Agree to Terms & Conditions</mat-checkbox>
 
-    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+    <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
   </form>
+
+  <div class="social-button-row" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+      <h3>Social Media Sign Ups</h3>
+      <button mat-raised-button (click)="tryGoogleLogin()" class="google"><mat-icon svgIcon="google" style="fill: #FF886C"></mat-icon>Sign-Up with Google</button>
+      <button mat-raised-button (click)="tryTwitterLogin()" class="twitter"><mat-icon svgIcon="twitter"></mat-icon> Sign-Up with Twitter</button>
+      <button mat-raised-button (click)="tryFacebookLogin()" class="facebook"><mat-icon svgIcon="facebook-box" style="fill: blue"></mat-icon> Sign-Up with Facebook</button>
+  </div>
 </section>

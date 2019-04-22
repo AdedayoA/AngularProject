@@ -1,3 +1,26 @@
 mat-form-field {
     width:300px;
 }
+
+.reset_PW{
+padding: 10px;
+}
+
+.row{
+  margin-top: 10px;
+}
+
+.twitter{
+    color:white;
+    background: #55C2DF;
+}
+
+.facebook{
+    color:white;
+    background: #2E7CBA;
+}
+
+.google{
+    color:white;
+    background: #DF4E51;
+}

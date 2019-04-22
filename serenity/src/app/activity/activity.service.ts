@@ -3,6 +3,7 @@ import { Activity } from './activity.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import {Subscription } from 'rxjs';
 
 
 @Injectable()
@@ -12,11 +13,12 @@ export class ActivityService {
     finishedActivitiesChanged = new Subject<Activity[]>();
     private availableActivities: Activity[] = [];
     private runningActivity: Activity;
+    private fbSubs: Subscription[] = [];
 
 constructor(private db: AngularFirestore) {}
 
     fetchAvailableActivities() {
-        this.db.collection('availableActivities').snapshotChanges().pipe(
+        this.fbSubs.push(this.db.collection('availableActivities').snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Activity;
                 const id = a.payload.doc.id;
@@ -25,10 +27,11 @@ constructor(private db: AngularFirestore) {}
         ).subscribe((activities: Activity[]) => {
             this.availableActivities = activities;
             this.activitiesChanged.next(...[this.availableActivities]);
-        });
+        }));
     }
 
     startActivity(selectedId: string) {
+        //this.db.doc('availableActivities/' + selectedId).update({lastSelected: new Date()})
         this.runningActivity = this.availableActivities.find(ex => ex.id === selectedId);
         this.activityChanged.next({ ...this.runningActivity });
     }
@@ -53,11 +56,14 @@ constructor(private db: AngularFirestore) {}
     }
 
     fetchCompletedorCancelledActivities() {
-        this.db.collection('finishedActivities').valueChanges().subscribe((activities: Activity[]) =>{
+        this.fbSubs.push(this.db.collection('finishedActivities').valueChanges().subscribe((activities: Activity[]) =>{
             this.finishedActivitiesChanged.next(activities);
-        });
+        }));
     }
 
+    cancelSubscription(){
+    this.fbSubs.forEach(sub => sub.unsubscribe());
+    }
     private addDataToDatabase(activity: Activity){
         this.db.collection('finishedActivities').add(activity);
     }

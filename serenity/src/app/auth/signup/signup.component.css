@@ -1,3 +1,19 @@
 mat-form-field {
     width:300px;
 }
+
+.twitter{
+    color:white;
+    background: #55C2DF;
+}
+
+.facebook{
+    color:white;
+    background: #2E7CBA;
+}
+
+.google{
+    color:white;
+    background: #DF4E51;
+    size: 64px;
+}

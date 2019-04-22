@@ -43,3 +43,13 @@ Validation to user input
 - Table can be sorted
 - Table is filtered
 - Table can be paginated
+
+4/21
+- Added real user authenication with email/Password
+- Added read/write permissions to the firestore database
+- Reformatted date format using toDate() function
+- Added security measures. User cannot access website activity via URL without being logged in. User will be sent back to login back to verify authenication & rw access.
+- Added error handling from firebase for users
+- Added 3rd Party sign in methods ( Google | Twitter | Facebook )
+- Added Klarsys's Material Icon for Social Media Icons
+- Added progress spinner when submitting for login/signup/reset
